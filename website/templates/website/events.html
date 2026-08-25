@@ -1,0 +1,71 @@
+{% extends "website/base.html" %}
+
+{% block content %}
+  <div class="page-stack">
+    {% include "website/page_intro.html" with eyebrow="Events" title="A simple home for weekly services and special announcements." description="The events page is designed to keep members and visitors aware of regular gatherings, district programs, and special moments in the life of the church." %}
+
+    <section class="split-grid split-grid-lean-right">
+      <article class="surface-panel">
+        <p class="section-label">Current Schedule</p>
+        <div class="stack-list inset-top">
+          {% for event in event_items %}
+            <div class="plain-list-card">
+              <div class="list-head list-head-wrap">
+                <h3>{{ event.title }}</h3>
+                <span class="badge badge-accent">{{ event.time }}</span>
+              </div>
+              <p>{{ event.description }}</p>
+            </div>
+          {% endfor %}
+        </div>
+      </article>
+
+      <article class="dark-panel">
+        <p class="section-label section-label-gold">Publishing Flow</p>
+        <h2>Built to handle routine updates without redesigning the site.</h2>
+        <div class="stack-copy inset-top">
+          <p>Add weekly notices for the English service in one place.</p>
+          <p>Publish district programs, conferences, and guest services when dates are confirmed.</p>
+          <p>Highlight special Sundays with photos, recap text, or sermon links once your gallery is ready.</p>
+        </div>
+      </article>
+    </section>
+
+    {% if announcements %}
+      <section class="surface-panel surface-panel-wide">
+        <p class="section-label">Announcements</p>
+        <div class="stack-list inset-top">
+          {% for announcement in announcements %}
+            <article class="plain-list-card">
+              <div class="list-head list-head-wrap">
+                <h3>{{ announcement.title }}</h3>
+                <span class="badge badge-accent">{{ announcement.start_date|date:"M j" }}</span>
+              </div>
+              <p>{{ announcement.body }}</p>
+            </article>
+          {% endfor %}
+        </div>
+      </section>
+    {% endif %}
+
+    <section class="detail-cascade">
+      <article class="surface-card">
+        <p class="section-label">Weekly Service</p>
+        <h2>Sunday Morning</h2>
+        <p>The anchor gathering visitors should notice first on the site.</p>
+      </article>
+
+      <article class="surface-card">
+        <p class="section-label">Seasonal Programs</p>
+        <h2>Ready to Add</h2>
+        <p>Perfect for conventions, prayer events, and holiday services.</p>
+      </article>
+
+      <article class="surface-card">
+        <p class="section-label">Visual Recaps</p>
+        <h2>Gallery Coming</h2>
+        <p>Photos and highlights can later give this page more life and trust.</p>
+      </article>
+    </section>
+  </div>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends "website/base.html" %}
+{% load static %}
+
+{% block content %}
+  <section class="auth-shell auth-page auth-login-page">
+    <div class="auth-visual">
+      <div class="auth-brand-card">
+        <span class="auth-logo-shell">
+          <img
+            class="auth-logo"
+            src="{% static 'website/pentecost-logo.png' %}"
+            alt="Church of Pentecost New Kyekyere English Service logo"
+          >
+        </span>
+        <div>
+          <p class="auth-brand-kicker">Church of Pentecost</p>
+          <h1>Welcome back.</h1>
+          <p>Continue into the English Service portal or staff dashboard.</p>
+        </div>
+      </div>
+
+      <div class="auth-orbit-card auth-orbit-card-primary">
+        <span>7:00 AM - 9:00 AM</span>
+        <strong>Sunday English Service</strong>
+      </div>
+
+      <div class="auth-orbit-card auth-orbit-card-secondary">
+        <span>Secure Access</span>
+        <strong>Members and staff only</strong>
+      </div>
+
+      <div class="auth-check-panel">
+        <p class="section-label section-label-gold">What Opens After Login</p>
+        <div class="auth-check-grid">
+          <span>Member requests</span>
+          <span>Profile updates</span>
+          <span>Admin dashboard</span>
+          <span>Service content tools</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="auth-form-card">
+      <div class="auth-form-heading">
+        <p class="section-label">Account Access</p>
+        <h2>Log in to continue.</h2>
+        <p>Use the email and password connected to your member or staff account.</p>
+      </div>
+
+      <form class="glass-form auth-form" method="post">
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+          <div class="form-errors">{{ form.non_field_errors }}</div>
+        {% endif %}
+        {% for field in form %}
+          <div class="form-field field-{{ field.name }}">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+              <div class="field-errors">{{ field.errors }}</div>
+            {% endif %}
+          </div>
+        {% endfor %}
+        <button class="button button-accent auth-submit" type="submit">Enter Secure Area</button>
+        <p class="form-note">Need an account? <a href="{% url 'account_signup' %}">Create one here</a>.</p>
+      </form>
+    </div>
+  </section>
+{% endblock %}

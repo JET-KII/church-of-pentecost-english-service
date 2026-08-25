@@ -1,0 +1,80 @@
+{% extends "website/base.html" %}
+
+{% block content %}
+  <div class="page-stack">
+    <section class="portal-hero dark-panel">
+      <p class="section-label section-label-gold">Member Portal</p>
+      <h1>Welcome, {{ profile.display_name }}.</h1>
+      <p class="section-lead">Manage your profile, share requests, and follow replies from the English Service team.</p>
+      <form method="post" action="{% url 'account_logout' %}">
+        {% csrf_token %}
+        <button class="button button-ghost" type="submit">Log Out</button>
+      </form>
+    </section>
+
+    <section class="split-grid split-grid-lean-left">
+      <article class="surface-panel">
+        <p class="section-label">Your Profile</p>
+        <form class="glass-form compact-form" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="action" value="profile">
+          {% for field in profile_form %}
+            <div class="form-field">
+              <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+              {{ field }}
+              {% if field.errors %}
+                <div class="field-errors">{{ field.errors }}</div>
+              {% endif %}
+            </div>
+          {% endfor %}
+          <button class="button button-accent" type="submit">Save Profile</button>
+        </form>
+      </article>
+
+      <article class="surface-panel">
+        <p class="section-label">Send a Request</p>
+        <form class="glass-form compact-form" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="action" value="request">
+          {% if request_form.non_field_errors %}
+            <div class="form-errors">{{ request_form.non_field_errors }}</div>
+          {% endif %}
+          {% for field in request_form %}
+            <div class="form-field">
+              <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+              {{ field }}
+              {% if field.errors %}
+                <div class="field-errors">{{ field.errors }}</div>
+              {% endif %}
+            </div>
+          {% endfor %}
+          <button class="button button-gold" type="submit">Send Request</button>
+        </form>
+      </article>
+    </section>
+
+    <section class="surface-panel surface-panel-wide">
+      <div class="section-header-row">
+        <div>
+          <p class="section-label">Request History</p>
+          <h2>Your recent messages and replies.</h2>
+        </div>
+      </div>
+      <div class="stack-list inset-top">
+        {% for item in member_requests %}
+          <a class="plain-list-card request-row" href="{% url 'portal_request_detail' item.pk %}">
+            <span class="badge badge-accent">{{ item.get_status_display }}</span>
+            <div>
+              <h3>{{ item.subject }}</h3>
+              <p>{{ item.get_request_type_display }} / {{ item.created_at|date:"M j, Y" }}</p>
+            </div>
+          </a>
+        {% empty %}
+          <div class="plain-list-card">
+            <p>No requests yet.</p>
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+  </div>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "website/base.html" %}
+
+{% block content %}
+  <div class="page-stack">
+    {% include "website/page_intro.html" with eyebrow="Sermons" title="A sermon archive that can grow with your ministry." description="This page is ready to host video messages, audio recordings, sermon notes, scripture references, and weekly teaching highlights." %}
+
+    <section class="three-up-grid sermon-format-grid">
+      {% for format in sermon_formats %}
+        <article class="surface-card">
+          <p class="section-label">Format</p>
+          <h2>{{ format.title }}</h2>
+          <p>{{ format.detail }}</p>
+        </article>
+      {% endfor %}
+    </section>
+
+    <section class="dark-panel section-offset-right">
+      <p class="section-label section-label-gold">Sample Layout</p>
+      <h2>Featured messages can be organized by format and scripture.</h2>
+
+      <div class="three-up-grid sermon-sample-grid inset-top">
+        {% for sermon in sermon_samples %}
+          <article class="dark-list-card">
+            <div class="list-head list-head-tight">
+              <span class="badge">{{ sermon.format }}</span>
+              <span class="micro-copy">{{ sermon.scripture }}</span>
+            </div>
+            <h3>{{ sermon.title }}</h3>
+            {% if sermon.description %}
+              <p>{{ sermon.description }}</p>
+            {% else %}
+              <p>{{ sermon.status }}</p>
+            {% endif %}
+            {% if sermon.media_url %}
+              <a class="contact-inline-link" href="{{ sermon.media_url }}" target="_blank" rel="noreferrer">{{ sermon.status }}</a>
+            {% endif %}
+          </article>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="two-up-grid split-grid-lean-left">
+      <article class="surface-panel">
+        <p class="section-label">Best Next Additions</p>
+        <div class="stack-copy inset-top">
+          <p>Weekly sermon title and speaker</p>
+          <p>YouTube or Facebook video links</p>
+          <p>Audio uploads or podcast feed</p>
+          <p>Notes, key scriptures, and prayer points</p>
+        </div>
+      </article>
+
+      <article class="sunlit-card sunlit-card-large">
+        <p class="section-label">Why This Matters</p>
+        <p class="section-lead">
+          A strong sermons page keeps members connected during the week and
+          helps visitors hear the voice and teaching culture of the service
+          before attending in person.
+        </p>
+      </article>
+    </section>
+  </div>
+{% endblock %}

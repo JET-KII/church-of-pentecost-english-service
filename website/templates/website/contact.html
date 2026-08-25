@@ -1,0 +1,72 @@
+{% extends "website/base.html" %}
+
+{% block content %}
+  <div class="page-stack">
+    {% include "website/page_intro.html" with eyebrow="Contact" title="Plan your visit to the English service." description="Everything on this page is focused on helping a first-time visitor know when to come, where to go, and what information will be added next." %}
+
+    <section class="split-grid split-grid-lean-left">
+      <article class="surface-panel">
+        <p class="section-label">Visit Information</p>
+
+        <div class="stack-copy inset-top">
+          <div>
+            <p class="micro-copy">Service Time</p>
+            <h2>{{ service_time }}</h2>
+          </div>
+          <div>
+            <p class="micro-copy">Address</p>
+            <p class="section-copy">
+              {{ location }}<br>
+              {{ landmark }}
+            </p>
+          </div>
+          <div>
+            <p class="micro-copy">Map Coordinates</p>
+            <p class="section-copy">
+              {{ coordinates_dms }}<br>
+              {{ coordinates_decimal }}
+            </p>
+          </div>
+        </div>
+
+        <div class="button-row inset-top">
+          <a class="button button-accent" href="{{ maps_search_url }}" target="_blank" rel="noreferrer">Open Coordinates in Maps</a>
+          <a class="button button-outline" href="{% url 'about' %}">Learn About the Service</a>
+        </div>
+      </article>
+
+      <article class="dark-panel">
+        <p class="section-label section-label-gold">Contact Details</p>
+        <h2>Phone, email, Instagram, and prayer connections can live here.</h2>
+        <div class="stack-list inset-top">
+          {% for item in contact_items %}
+            <div class="dark-list-card">
+              <h3>{{ item.title }}</h3>
+              <p>{{ item.detail }}</p>
+              {% if item.url %}
+                <a class="contact-inline-link" href="{{ item.url }}" target="_blank" rel="noreferrer">{{ item.label }}</a>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      </article>
+    </section>
+
+    <section class="detail-cascade">
+      <article class="surface-card">
+        <p class="section-label">First-Time Visit</p>
+        <p>The current site gives visitors the essential details they need before attending on Sunday.</p>
+      </article>
+
+      <article class="surface-card">
+        <p class="section-label">Future Upgrade</p>
+        <p>We can add a working contact form once you choose where messages should be sent.</p>
+      </article>
+
+      <article class="surface-card">
+        <p class="section-label">Brand Assets</p>
+        <p>Your custom Pentecost-inspired logo and gallery can be dropped in later without rebuilding the site structure.</p>
+      </article>
+    </section>
+  </div>
+{% endblock %}

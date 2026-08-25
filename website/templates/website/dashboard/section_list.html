@@ -1,0 +1,45 @@
+{% extends "website/base.html" %}
+
+{% block content %}
+  <div class="page-stack dashboard-shell">
+    <section class="surface-panel surface-panel-wide">
+      <div class="section-header-row">
+        <div>
+          <p class="section-label">Dashboard</p>
+          <h1>{{ section_title }}</h1>
+          <p class="section-lead">{{ section_description }}</p>
+        </div>
+        <a class="button button-accent" href="{% url 'dashboard_section_create' section %}">Add New</a>
+      </div>
+      <form class="search-form inset-top" method="get">
+        <input type="search" name="q" value="{{ query }}" placeholder="Search {{ section_title }}">
+        <button class="button button-outline" type="submit">Search</button>
+      </form>
+    </section>
+
+    <section class="surface-panel surface-panel-wide">
+      <div class="stack-list">
+        {% for item, row in rows %}
+          <article class="plain-list-card dashboard-row">
+            <div>
+              <span class="badge{% if row.is_live %} badge-accent{% endif %}">{{ row.badge }}</span>
+              <h3>{{ row.title }}</h3>
+              <p>{{ row.subtitle|truncatechars:150 }}</p>
+            </div>
+            <div class="dashboard-actions">
+              <a class="button button-outline" href="{% url 'dashboard_section_edit' section item.pk %}">Edit</a>
+              <a class="button button-ghost-light" href="{% url 'dashboard_section_delete' section item.pk %}">Delete</a>
+            </div>
+          </article>
+        {% empty %}
+          <article class="plain-list-card">
+            <p>No items yet.</p>
+          </article>
+        {% endfor %}
+      </div>
+      <div class="button-row inset-top">
+        <a class="button button-outline" href="{% url 'dashboard_home' %}">Back to Dashboard</a>
+      </div>
+    </section>
+  </div>
+{% endblock %}

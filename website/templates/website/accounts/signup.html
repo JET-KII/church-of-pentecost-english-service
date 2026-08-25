@@ -1,0 +1,72 @@
+{% extends "website/base.html" %}
+{% load static %}
+
+{% block content %}
+  <section class="auth-shell auth-page auth-signup-page">
+    <div class="auth-visual">
+      <div class="auth-brand-card">
+        <span class="auth-logo-shell">
+          <img
+            class="auth-logo"
+            src="{% static 'website/pentecost-logo.png' %}"
+            alt="Church of Pentecost New Kyekyere English Service logo"
+          >
+        </span>
+        <div>
+          <p class="auth-brand-kicker">Member Portal</p>
+          <h1>Join the digital home.</h1>
+          <p>Create your English Service account, verify your email, and stay connected beyond Sunday.</p>
+        </div>
+      </div>
+
+      <div class="auth-flow">
+        <article>
+          <span>01</span>
+          <strong>Create account</strong>
+          <p>Add your name, email, and optional ministry interest.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <strong>Verify email</strong>
+          <p>Open the verification link before portal access is activated.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <strong>Use portal</strong>
+          <p>Send requests and view replies from church staff.</p>
+        </article>
+      </div>
+    </div>
+
+    <div class="auth-form-card">
+      <div class="auth-form-heading">
+        <p class="section-label">Member Account</p>
+        <h2>Create your account.</h2>
+        <p>Public sign-up creates a member account only. Staff access is assigned separately.</p>
+      </div>
+
+      <form class="glass-form auth-form auth-signup-form" method="post">
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+          <div class="form-errors">{{ form.non_field_errors }}</div>
+        {% endif %}
+        {% for field in form %}
+          <div class="form-field field-{{ field.name }}{% if field.is_hidden %} is-hidden{% endif %}{% if field.name == 'password1' %} is-wide{% endif %}">
+            {% if not field.is_hidden %}
+              <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {% endif %}
+            {{ field }}
+            {% if field.help_text %}
+              <div class="field-help">{{ field.help_text }}</div>
+            {% endif %}
+            {% if field.errors %}
+              <div class="field-errors">{{ field.errors }}</div>
+            {% endif %}
+          </div>
+        {% endfor %}
+        <button class="button button-accent auth-submit" type="submit">Create Member Account</button>
+        <p class="form-note">Already have an account? <a href="{% url 'account_login' %}">Log in</a>.</p>
+      </form>
+    </div>
+  </section>
+{% endblock %}

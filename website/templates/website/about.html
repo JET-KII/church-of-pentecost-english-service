@@ -1,0 +1,92 @@
+{% extends "website/base.html" %}
+
+{% block content %}
+  <div class="page-stack">
+    {% include "website/page_intro.html" with eyebrow="About the Service" title="A Sunday gathering shaped by worship, truth, and fellowship." description="The English Service exists to serve worshippers who connect best through English while remaining rooted in the life and mission of the district." %}
+
+    <section class="split-grid split-grid-lean-left">
+      <article class="surface-panel">
+        <p class="section-label">Our Focus</p>
+        <h2>A warm place to encounter God and grow in faith.</h2>
+        <p class="section-lead">
+          The English service creates space for people from different
+          backgrounds to worship together, understand the Word clearly, and
+          build meaningful relationships in the church family.
+        </p>
+        <p class="section-copy">
+          This first version of the website highlights service time, location,
+          sermons, events, and contact information. Pastor and service-leader
+          details can be added later without changing the structure of the site.
+        </p>
+      </article>
+
+      <article class="surface-panel surface-panel-soft">
+        <p class="section-label">Service Pillars</p>
+        <div class="stack-list inset-top">
+          {% for pillar in service_pillars %}
+            <div class="plain-list-card">
+              <p>{{ pillar }}</p>
+            </div>
+          {% endfor %}
+        </div>
+      </article>
+    </section>
+
+    <section class="surface-panel surface-panel-wide">
+      <p class="section-label">What Visitors Can Expect</p>
+      <h2>A clear first impression for new and returning worshippers.</h2>
+
+      <div class="expectation-grid inset-top">
+        {% for item in visitor_expectations %}
+          <article class="plain-list-card">
+            <p>{{ item }}</p>
+          </article>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="detail-cascade">
+      <article class="surface-card">
+        <p class="section-label">Service Time</p>
+        <h2>7:00 AM - 9:00 AM</h2>
+        <p>Every Sunday morning.</p>
+      </article>
+
+      <article class="surface-card">
+        <p class="section-label">Location</p>
+        <h2>Suame, Kumasi</h2>
+        <p>{{ location }}, {{ landmark }}.</p>
+      </article>
+
+      <article class="surface-card">
+        <p class="section-label">Leadership</p>
+        {% if leaders %}
+          {% for leader in leaders|slice:":1" %}
+            <h2>{{ leader.name }}</h2>
+            <p>{{ leader.role }}</p>
+          {% endfor %}
+        {% else %}
+          <h2>Coming Soon</h2>
+          <p>Pastor and service leader details will be added when you are ready.</p>
+        {% endif %}
+      </article>
+    </section>
+
+    {% if leaders %}
+      <section class="surface-panel surface-panel-wide">
+        <p class="section-label">Leadership Team</p>
+        <div class="three-up-grid inset-top">
+          {% for leader in leaders %}
+            <article class="plain-list-card">
+              <h3>{{ leader.name }}</h3>
+              <p class="micro-copy">{{ leader.role }}</p>
+              {% if leader.bio %}
+                <p>{{ leader.bio }}</p>
+              {% endif %}
+            </article>
+          {% endfor %}
+        </div>
+      </section>
+    {% endif %}
+  </div>
+{% endblock %}

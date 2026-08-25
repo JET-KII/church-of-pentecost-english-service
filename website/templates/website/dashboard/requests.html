@@ -1,0 +1,43 @@
+{% extends "website/base.html" %}
+
+{% block content %}
+  <div class="page-stack dashboard-shell">
+    <section class="surface-panel surface-panel-wide">
+      <div class="section-header-row">
+        <div>
+          <p class="section-label">Dashboard</p>
+          <h1>Member Requests</h1>
+          <p class="section-lead">Review requests and send replies to members.</p>
+        </div>
+        <a class="button button-outline" href="{% url 'dashboard_home' %}">Dashboard Home</a>
+      </div>
+      <form class="search-form inset-top" method="get">
+        <select name="status">
+          <option value="">All statuses</option>
+          {% for value, label in status_choices %}
+            <option value="{{ value }}"{% if value == status %} selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+        <button class="button button-outline" type="submit">Filter</button>
+      </form>
+    </section>
+
+    <section class="surface-panel surface-panel-wide">
+      <div class="stack-list">
+        {% for item in member_requests %}
+          <a class="plain-list-card request-row" href="{% url 'dashboard_request_detail' item.pk %}">
+            <span class="badge badge-accent">{{ item.get_status_display }}</span>
+            <div>
+              <h3>{{ item.subject }}</h3>
+              <p>{{ item.member.display_name }} / {{ item.get_request_type_display }} / {{ item.created_at|date:"M j, Y" }}</p>
+            </div>
+          </a>
+        {% empty %}
+          <article class="plain-list-card">
+            <p>No requests found.</p>
+          </article>
+        {% endfor %}
+      </div>
+    </section>
+  </div>
+{% endblock %}

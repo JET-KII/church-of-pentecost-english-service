@@ -1,0 +1,58 @@
+{% extends "website/base.html" %}
+
+{% block content %}
+  <div class="page-stack dashboard-shell">
+    <section class="dashboard-hero dark-panel">
+      <div>
+        <p class="section-label section-label-gold">Staff Dashboard</p>
+        <h1>Manage the English Service website.</h1>
+        <p class="section-lead">Update content, review member requests, and keep the public pages current.</p>
+      </div>
+      <form method="post" action="{% url 'account_logout' %}">
+        {% csrf_token %}
+        <button class="button button-ghost" type="submit">Log Out</button>
+      </form>
+    </section>
+
+    <section class="dashboard-nav surface-panel">
+      {% for key, config in dashboard_sections.items %}
+        <a class="dashboard-nav-link" href="{% url 'dashboard_section' key %}">{{ config.title }}</a>
+      {% endfor %}
+      <a class="dashboard-nav-link" href="{% url 'dashboard_requests' %}">Requests</a>
+    </section>
+
+    <section class="dashboard-card-grid">
+      {% for label, count in overview_cards %}
+        <article class="surface-card dashboard-stat">
+          <p class="section-label">{{ label }}</p>
+          <h2>{{ count }}</h2>
+        </article>
+      {% endfor %}
+    </section>
+
+    <section class="surface-panel surface-panel-wide">
+      <div class="section-header-row">
+        <div>
+          <p class="section-label">Latest Requests</p>
+          <h2>Recent member messages.</h2>
+        </div>
+        <a class="button button-outline" href="{% url 'dashboard_requests' %}">View All</a>
+      </div>
+      <div class="stack-list inset-top">
+        {% for item in latest_requests %}
+          <a class="plain-list-card request-row" href="{% url 'dashboard_request_detail' item.pk %}">
+            <span class="badge badge-accent">{{ item.get_status_display }}</span>
+            <div>
+              <h3>{{ item.subject }}</h3>
+              <p>{{ item.member.display_name }} / {{ item.get_request_type_display }}</p>
+            </div>
+          </a>
+        {% empty %}
+          <div class="plain-list-card">
+            <p>No member requests yet.</p>
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+  </div>
+{% endblock %}

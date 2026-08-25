@@ -1,0 +1,238 @@
+{% extends "website/base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="page-stack">
+    <section class="hero hero-premium hero-left-led">
+      <div class="hero-orb hero-orb-left"></div>
+      <div class="hero-orb hero-orb-right"></div>
+      <div class="hero-noise"></div>
+      <div class="hero-grid hero-grid-premium">
+        <div class="hero-copy hero-copy-premium hero-copy-dominant">
+          <div class="hero-ribbon">English Service / Sunday / 7:00 AM - 9:00 AM</div>
+          <p class="eyebrow">Church of Pentecost</p>
+          <h1>
+            Worship in English with
+            <span>clarity</span>,
+            <span>power</span>,
+            and
+            <span>community</span>.
+          </h1>
+          <p class="hero-lead">{{ summary }}</p>
+
+          <div class="button-row">
+            <a class="button button-gold" href="{% url 'contact' %}">Plan Your Visit</a>
+            <a class="button button-ghost" href="{% url 'sermons' %}">Explore Sermons</a>
+          </div>
+
+          <div class="hero-motto">
+            <span>Worship</span>
+            <span>Word</span>
+            <span>Prayer</span>
+            <span>Fellowship</span>
+          </div>
+        </div>
+
+        <aside class="hero-stage">
+          <article class="hero-logo-card">
+            <div class="hero-logo-wrap">
+              <img
+                class="hero-logo-art"
+                src="{% static 'website/pentecost-logo.png' %}"
+                alt="Church of Pentecost New Kyekyere English Service logo"
+              >
+            </div>
+            <div class="hero-logo-copy">
+              <p class="micro-copy">District Identity</p>
+              <h2>{{ church_name }}</h2>
+              <p class="card-copy">{{ location }} / {{ landmark }}</p>
+            </div>
+          </article>
+
+          <div class="hero-info-grid">
+            <article class="hero-signal-card signal-blue">
+              <p class="card-label">Service Window</p>
+              <h3>{{ service_day_short }}</h3>
+              <p class="card-copy">{{ service_hours_short }}</p>
+            </article>
+
+            <article class="hero-signal-card signal-gold">
+              <p class="card-label">Coordinates Ready</p>
+              <h3>Find Us Easily</h3>
+              <p class="card-copy">{{ coordinates_decimal }}</p>
+            </article>
+
+            <article class="hero-signal-card signal-glass signal-wide">
+              <p class="card-label">Atmosphere</p>
+              <p class="hero-signal-meta">
+                Spirit-led worship, practical teaching, prayer, and a warm
+                welcome for first-time visitors.
+              </p>
+            </article>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="theme-showcase section-bleed">
+      <div class="section-header-row theme-header-row">
+        <div>
+          <p class="section-label">Annual Theme</p>
+          <h2>The 2026 focus should feel official and central.</h2>
+        </div>
+        <p class="theme-summary">
+          We're keeping the year theme visible as a headline moment on the
+          homepage, not just another announcement lower down.
+        </p>
+      </div>
+
+      <section class="theme-banner">
+        <figure class="theme-banner-frame">
+          <img
+            class="theme-banner-image"
+            src="{% static 'website/theme-2026-banner.jpg' %}"
+            alt="2026 Theme: The Church Unleashed to Transform Society through the Gospel and the Power of the Holy Spirit."
+          >
+          <figcaption class="visually-hidden">
+            {{ theme_2026.badge }}. {{ theme_2026.headline_top }} to Transform
+            Society through the Gospel and the Power of the Holy Spirit.
+            {{ theme_2026.scripture_reference }}
+          </figcaption>
+        </figure>
+      </section>
+    </section>
+
+    {% if announcements %}
+      <section class="surface-panel surface-panel-wide">
+        <div class="section-header-row">
+          <div>
+            <p class="section-label">Announcements</p>
+            <h2>Latest updates for the English Service.</h2>
+          </div>
+        </div>
+        <div class="stack-list inset-top">
+          {% for announcement in announcements %}
+            <article class="plain-list-card">
+              <div class="list-head list-head-wrap">
+                <h3>{{ announcement.title }}</h3>
+                <span class="badge badge-accent">{{ announcement.start_date|date:"M j" }}</span>
+              </div>
+              <p>{{ announcement.body }}</p>
+            </article>
+          {% endfor %}
+        </div>
+      </section>
+    {% endif %}
+
+    <section class="reaction-band surface-panel">
+      <div class="section-header-row">
+        <div>
+          <p class="section-label">Sunday Reactions</p>
+          <h2>The site should feel as alive as the service itself.</h2>
+        </div>
+        <p class="theme-summary">
+          These are the emotions and outcomes the design should reinforce from
+          the first click to the final footer call to action.
+        </p>
+      </div>
+
+      <div class="reaction-grid reaction-grid-stagger inset-top">
+        {% for item in reaction_items %}
+          <article class="reaction-card">
+            <span class="reaction-mark">0{{ forloop.counter }}</span>
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.description }}</p>
+          </article>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="impact-grid">
+      <article class="impact-panel surface-panel">
+        <p class="section-label">Why This Service Stands Out</p>
+        <h2>Less like a notice board. More like a living church front door.</h2>
+        <p class="section-lead">
+          The English service should feel spiritually grounded and visually
+          memorable, with space for first-time guests, families, students, and
+          workers to connect quickly.
+        </p>
+
+        <div class="feature-point-grid">
+          {% for item in home_highlights %}
+            <article class="feature-point">
+              <span class="feature-index">0{{ forloop.counter }}</span>
+              <div>
+                <h3>{{ item.title }}</h3>
+                <p>{{ item.description }}</p>
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+      </article>
+
+      <article class="dark-panel">
+        <p class="section-label section-label-gold">This Sunday</p>
+        <h2>Come expectant and ready to grow.</h2>
+        <p class="section-lead">
+          {{ welcome_line }} Whether you are visiting for the first time or
+          looking for a church family, you will find a place to worship,
+          listen, and belong.
+        </p>
+
+        <div class="stack-list inset-top">
+          {% for event in event_items %}
+            <div class="dark-list-card">
+              <div class="list-head">
+                <h3>{{ event.title }}</h3>
+                <span class="badge">{{ event.time }}</span>
+              </div>
+              <p>{{ event.description }}</p>
+            </div>
+          {% endfor %}
+        </div>
+      </article>
+    </section>
+
+    <section class="journey-strip journey-strip-stagger section-bleed-soft">
+      <article class="journey-node">
+        <span class="journey-step">01</span>
+        <h3 class="journey-title">Arrive</h3>
+        <p class="journey-copy">Find the location quickly with the new map coordinates.</p>
+      </article>
+      <article class="journey-node">
+        <span class="journey-step">02</span>
+        <h3 class="journey-title">Worship</h3>
+        <p class="journey-copy">Step into heartfelt praise and a Spirit-filled atmosphere.</p>
+      </article>
+      <article class="journey-node">
+        <span class="journey-step">03</span>
+        <h3 class="journey-title">Receive</h3>
+        <p class="journey-copy">Hear practical Bible teaching rooted in the Gospel.</p>
+      </article>
+      <article class="journey-node">
+        <span class="journey-step">04</span>
+        <h3 class="journey-title">Connect</h3>
+        <p class="journey-copy">Leave known, welcomed, and connected to the church family.</p>
+      </article>
+    </section>
+
+    <section class="surface-panel surface-panel-wide">
+      <div class="section-header-row">
+        <div>
+          <p class="section-label">Sermon Library</p>
+          <h2>Ready for video, audio, and teaching notes.</h2>
+        </div>
+        <a class="button button-outline" href="{% url 'sermons' %}">Open Sermons Page</a>
+      </div>
+
+      <div class="three-up-grid sermon-format-grid inset-top">
+        {% for format in sermon_formats %}
+          <article class="sunlit-card">
+            <h3>{{ format.title }}</h3>
+            <p>{{ format.detail }}</p>
+          </article>
+        {% endfor %}
+      </div>
+    </section>
+  </div>
+{% endblock %}

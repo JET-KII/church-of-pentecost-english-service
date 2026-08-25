@@ -1,0 +1,14 @@
+{% extends "website/base.html" %}
+
+{% block content %}
+  <section class="surface-panel surface-panel-wide">
+    <p class="section-label">Dashboard</p>
+    <h1>Delete {{ object }}?</h1>
+    <p class="section-lead">This action will remove the item from the dashboard and public website.</p>
+    <form class="button-row inset-top" method="post">
+      {% csrf_token %}
+      <button class="button button-accent" type="submit">Delete</button>
+      <a class="button button-outline" href="{% url 'dashboard_section' section %}">Cancel</a>
+    </form>
+  </section>
+{% endblock %}

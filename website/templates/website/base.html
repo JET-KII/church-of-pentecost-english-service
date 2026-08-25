@@ -1,0 +1,193 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ page_title }}</title>
+    <meta name="description" content="{{ meta_description }}">
+    <link rel="icon" type="image/png" href="{% static 'website/pentecost-logo.png' %}">
+    <link rel="shortcut icon" href="{% static 'website/pentecost-logo.png' %}">
+    <link rel="apple-touch-icon" href="{% static 'website/pentecost-logo.png' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'website/site.css' %}?v=20260608-footer-compact">
+    <script>
+      window.__siteLoaderStartedAt = Date.now();
+      window.addEventListener("load", function () {
+        var minimumDisplay = 900;
+        var elapsed = Date.now() - window.__siteLoaderStartedAt;
+        var remaining = Math.max(0, minimumDisplay - elapsed);
+        window.setTimeout(function () {
+          document.body.classList.add("site-ready");
+          document.body.classList.remove("site-preload");
+        }, remaining);
+      });
+    </script>
+    <noscript>
+      <style>
+        .site-loader {
+          display: none;
+        }
+
+        .site-shell {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+      </style>
+    </noscript>
+  </head>
+  <body class="site-preload">
+    <div class="site-loader" role="status" aria-live="polite" aria-label="Loading website">
+      <div class="site-loader-orb site-loader-orb-left"></div>
+      <div class="site-loader-orb site-loader-orb-right"></div>
+      <div class="site-loader-shell">
+        <div class="site-loader-stage">
+          <span class="site-loader-ring site-loader-ring-outer"></span>
+          <span class="site-loader-ring site-loader-ring-middle"></span>
+          <span class="site-loader-ring site-loader-ring-inner"></span>
+          <span class="site-loader-core">
+            <img
+              class="site-loader-logo"
+              src="{% static 'website/pentecost-logo.png' %}"
+              alt="Church of Pentecost New Kyekyere English Service logo"
+            >
+          </span>
+        </div>
+        <div class="site-loader-copy">
+          <p class="site-loader-kicker">Church of Pentecost</p>
+          <p class="site-loader-title">{{ service_name }}</p>
+          <p class="site-loader-message">Preparing your worship experience</p>
+        </div>
+      </div>
+    </div>
+    <div class="site-shell">
+      <header class="site-header">
+        <div class="container header-row">
+          <a class="brand" href="{% url 'home' %}">
+            <span class="brand-logo-shell">
+              <img
+                class="brand-logo"
+                src="{% static 'website/pentecost-logo.png' %}"
+                alt="Church of Pentecost New Kyekyere English Service logo"
+              >
+            </span>
+            <span class="brand-copy">
+              <span class="brand-kicker">Church of Pentecost</span>
+              <span class="brand-title">New Kyekyere District</span>
+              <span class="brand-subtitle">{{ service_name }}</span>
+            </span>
+          </a>
+
+          <nav class="site-nav" aria-label="Primary">
+            {% for item in navigation %}
+              <a
+                class="nav-link{% if request.resolver_match.url_name == item.url_name %} is-active{% endif %}"
+                href="{% url item.url_name %}"
+              >
+                {{ item.label }}
+              </a>
+            {% endfor %}
+            {% if request.user.is_authenticated %}
+              {% if request.user.is_staff %}
+                <a class="nav-link" href="{% url 'dashboard_home' %}">Dashboard</a>
+              {% else %}
+                <a class="nav-link" href="{% url 'portal' %}">Portal</a>
+              {% endif %}
+            {% else %}
+              <a class="nav-link" href="{% url 'account_login' %}">Log In</a>
+            {% endif %}
+          </nav>
+        </div>
+      </header>
+
+      <main class="container main-content">
+        {% if messages %}
+          <div class="message-stack" role="status" aria-live="polite">
+            {% for message in messages %}
+              <p class="site-message site-message-{{ message.tags|default:'info' }}">{{ message }}</p>
+            {% endfor %}
+          </div>
+        {% endif %}
+        {% block content %}{% endblock %}
+      </main>
+
+      <footer class="site-footer">
+        <div class="container footer-shell">
+          <section class="footer-brand-block">
+            <a class="footer-brand" href="{% url 'home' %}">
+              <span class="footer-brand-shell">
+                <img
+                  class="footer-brand-logo"
+                  src="{% static 'website/pentecost-logo.png' %}"
+                  alt="Church of Pentecost New Kyekyere English Service logo"
+                >
+              </span>
+              <span class="footer-brand-copy">
+                <span class="brand-kicker">Church of Pentecost</span>
+                <span class="footer-heading">New Kyekyere District</span>
+                <span class="brand-subtitle">{{ service_name }}</span>
+              </span>
+            </a>
+            {% if summary %}
+              <p class="footer-copy">{{ summary }}</p>
+            {% endif %}
+            {% if theme_2026.badge or theme_2026.headline_top %}
+              <p class="footer-theme-line">
+                {% if theme_2026.badge %}{{ theme_2026.badge }}{% endif %}
+                {% if theme_2026.badge and theme_2026.headline_top %} / {% endif %}
+                {% if theme_2026.headline_top %}{{ theme_2026.headline_top }}{% endif %}
+              </p>
+            {% endif %}
+            {% if instagram_url %}
+              <a
+                class="footer-social-link"
+                href="{{ instagram_url }}"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Follow us on Instagram"
+                title="Follow us on Instagram"
+              >
+                <svg class="footer-social-icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9a5.5 5.5 0 0 1-5.5 5.5h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm0 1.8A3.7 3.7 0 0 0 3.8 7.5v9a3.7 3.7 0 0 0 3.7 3.7h9a3.7 3.7 0 0 0 3.7-3.7v-9a3.7 3.7 0 0 0-3.7-3.7h-9Zm9.7 1.35a1.15 1.15 0 1 1 0 2.3 1.15 1.15 0 0 1 0-2.3ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.8A3.2 3.2 0 1 0 12 15.2 3.2 3.2 0 0 0 12 8.8Z"></path>
+                </svg>
+                <span class="visually-hidden">Instagram {{ instagram_handle }}</span>
+              </a>
+            {% endif %}
+          </section>
+
+          {% if navigation %}
+            <section class="footer-panel">
+              <p class="footer-label">Explore</p>
+              <div class="footer-links">
+                {% for item in navigation %}
+                  <a href="{% url item.url_name %}">{{ item.label }}</a>
+                {% endfor %}
+              </div>
+            </section>
+          {% endif %}
+
+          <section class="footer-panel footer-visit-panel">
+            <p class="footer-label">Visit</p>
+            <div class="footer-copy">
+              {% if service_time %}<p>{{ service_time }}</p>{% endif %}
+              {% if location %}<p>{{ location }}</p>{% endif %}
+              {% if landmark %}<p>{{ landmark }}</p>{% endif %}
+            </div>
+            {% if maps_search_url %}
+              <a class="footer-inline-link" href="{{ maps_search_url }}" target="_blank" rel="noreferrer">Open map and directions</a>
+            {% endif %}
+          </section>
+        </div>
+
+        <div class="footer-bar">
+          <div class="container footer-bar-row">
+            <p>&copy; {% if church_name %}{{ church_name }}{% else %}Church of Pentecost{% endif %}{% if service_name %} {{ service_name }}{% endif %}</p>
+            {% if coordinates_decimal %}<p>{{ coordinates_decimal }}</p>{% endif %}
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

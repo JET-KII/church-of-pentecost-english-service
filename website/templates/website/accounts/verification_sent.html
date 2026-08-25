@@ -1,0 +1,15 @@
+{% extends "website/base.html" %}
+
+{% block content %}
+  <section class="surface-panel surface-panel-wide">
+    <p class="section-label">Verify Your Account</p>
+    <h1>Check your email.</h1>
+    <p class="section-lead">
+      We sent a verification link to the email you used for sign-up. Open the link to activate your member portal access.
+    </p>
+    <div class="button-row inset-top">
+      <a class="button button-accent" href="{% url 'account_login' %}">Go to Login</a>
+      <a class="button button-outline" href="{% url 'home' %}">Return Home</a>
+    </div>
+  </section>
+{% endblock %}

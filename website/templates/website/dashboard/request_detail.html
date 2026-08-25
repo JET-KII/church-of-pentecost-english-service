@@ -1,0 +1,66 @@
+{% extends "website/base.html" %}
+
+{% block content %}
+  <div class="page-stack dashboard-shell">
+    <section class="surface-panel surface-panel-wide">
+      <p class="section-label">{{ member_request.get_request_type_display }}</p>
+      <h1>{{ member_request.subject }}</h1>
+      <p class="section-lead">{{ member_request.message }}</p>
+      <p class="micro-copy">{{ member_request.member.display_name }} / {{ member_request.created_at|date:"M j, Y g:i A" }}</p>
+    </section>
+
+    <section class="split-grid split-grid-lean-left">
+      <article class="surface-panel">
+        <p class="section-label">Status</p>
+        <form class="glass-form compact-form" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="action" value="status">
+          {% for field in status_form %}
+            <div class="form-field">
+              <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+              {{ field }}
+            </div>
+          {% endfor %}
+          <button class="button button-outline" type="submit">Update Status</button>
+        </form>
+      </article>
+
+      <article class="surface-panel">
+        <p class="section-label">Reply</p>
+        <form class="glass-form compact-form" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="action" value="reply">
+          {% for field in reply_form %}
+            <div class="form-field">
+              <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+              {{ field }}
+              {% if field.errors %}
+                <div class="field-errors">{{ field.errors }}</div>
+              {% endif %}
+            </div>
+          {% endfor %}
+          <button class="button button-accent" type="submit">Send Reply</button>
+        </form>
+      </article>
+    </section>
+
+    <section class="surface-panel surface-panel-wide">
+      <p class="section-label">Replies</p>
+      <div class="stack-list inset-top">
+        {% for reply in member_request.replies.all %}
+          <article class="plain-list-card">
+            <p>{{ reply.message }}</p>
+            <span class="micro-copy">{{ reply.created_at|date:"M j, Y g:i A" }}</span>
+          </article>
+        {% empty %}
+          <article class="plain-list-card">
+            <p>No replies yet.</p>
+          </article>
+        {% endfor %}
+      </div>
+      <div class="button-row inset-top">
+        <a class="button button-outline" href="{% url 'dashboard_requests' %}">Back to Requests</a>
+      </div>
+    </section>
+  </div>
+{% endblock %}

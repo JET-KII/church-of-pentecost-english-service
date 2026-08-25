@@ -1,0 +1,31 @@
+{% extends "website/base.html" %}
+
+{% block content %}
+  <div class="page-stack">
+    <section class="surface-panel surface-panel-wide">
+      <p class="section-label">{{ member_request.get_request_type_display }}</p>
+      <h1>{{ member_request.subject }}</h1>
+      <p class="section-lead">{{ member_request.message }}</p>
+      <span class="badge badge-accent">{{ member_request.get_status_display }}</span>
+    </section>
+
+    <section class="surface-panel">
+      <p class="section-label">Replies</p>
+      <div class="stack-list inset-top">
+        {% for reply in member_request.replies.all %}
+          <article class="plain-list-card">
+            <p>{{ reply.message }}</p>
+            <span class="micro-copy">{{ reply.created_at|date:"M j, Y g:i A" }}</span>
+          </article>
+        {% empty %}
+          <article class="plain-list-card">
+            <p>No replies yet.</p>
+          </article>
+        {% endfor %}
+      </div>
+      <div class="button-row inset-top">
+        <a class="button button-outline" href="{% url 'portal' %}">Back to Portal</a>
+      </div>
+    </section>
+  </div>
+{% endblock %}

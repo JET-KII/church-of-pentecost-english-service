@@ -1,0 +1,62 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 256 256"
+  role="img"
+  aria-labelledby="title desc"
+>
+  <title id="title">Church of Pentecost English Service brand mark</title>
+  <desc id="desc">
+    Futuristic blue and gold circular emblem with concentric rings, a globe,
+    and a dove.
+  </desc>
+
+  <defs>
+    <linearGradient id="goldRing" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffd24a" />
+      <stop offset="100%" stop-color="#f5a300" />
+    </linearGradient>
+    <linearGradient id="blueCore" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#0f2bc8" />
+      <stop offset="100%" stop-color="#061a64" />
+    </linearGradient>
+    <linearGradient id="whiteGlow" x1="50%" x2="50%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="1" />
+      <stop offset="100%" stop-color="#f6fbff" stop-opacity="0.75" />
+    </linearGradient>
+  </defs>
+
+  <circle cx="128" cy="128" r="120" fill="url(#goldRing)" />
+  <circle cx="128" cy="128" r="103" fill="#ffffff" />
+  <circle cx="128" cy="128" r="94" fill="none" stroke="url(#blueCore)" stroke-width="8" />
+  <circle cx="128" cy="128" r="77" fill="none" stroke="#0f2bc8" stroke-width="8" />
+  <circle cx="128" cy="128" r="60" fill="#ffffff" stroke="#0f2bc8" stroke-width="6" />
+  <circle cx="128" cy="138" r="33" fill="#0f2bc8" fill-opacity="0.08" />
+
+  <g fill="none" stroke="#0f2bc8" stroke-linecap="round" stroke-width="4">
+    <ellipse cx="128" cy="138" rx="44" ry="18" />
+    <ellipse cx="128" cy="138" rx="28" ry="18" />
+    <path d="M84 138h88" />
+    <path d="M128 104v68" />
+  </g>
+
+  <g fill="#0f2bc8">
+    <path d="M82 136c9-14 24-21 46-22-6 7-9 14-10 22H82Z" />
+    <path d="M174 136c-9-14-24-21-46-22 6 7 9 14 10 22h36Z" />
+    <path d="M96 152c11 12 22 18 32 18s21-6 32-18c-10 4-21 6-32 6s-22-2-32-6Z" />
+  </g>
+
+  <path
+    d="M128 48c-12 10-16 21-16 31-9 4-17 9-24 17 15-1 24 4 31 13v20c6-3 9-7 9-12 0 5 3 9 9 12v-20c7-9 16-14 31-13-7-8-15-13-24-17 0-10-4-21-16-31Z"
+    fill="url(#blueCore)"
+  />
+
+  <g stroke="#ff3846" stroke-linecap="round" stroke-width="3">
+    <path d="M128 36v-8" />
+    <path d="M112 42l-5-6" />
+    <path d="M144 42l5-6" />
+    <path d="M101 54l-8-3" />
+    <path d="M155 54l8-3" />
+    <path d="M98 72h-8" />
+    <path d="M166 72h8" />
+  </g>
+</svg>
