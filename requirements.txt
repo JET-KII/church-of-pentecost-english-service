@@ -7,4 +7,5 @@ psycopg[binary]==3.3.2
 sqlparse==0.5.5
 tzdata==2026.2
 typing_extensions==4.15.0
+vercel==0.10.0
 whitenoise==6.9.0

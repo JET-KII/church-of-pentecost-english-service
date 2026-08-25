@@ -9,3 +9,5 @@ staticfiles/
 .env
 .env.*
 start_*.bat
+
+.env*.local
