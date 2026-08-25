@@ -1,7 +1,7 @@
 [project]
 name = "church-of-pentecost-english-service"
 version = "1.0.0"
-requires-python = "==3.12.*"
+requires-python = "==3.14.*"
 dependencies = [
   "asgiref==3.11.1",
   "Django==6.0.5",
